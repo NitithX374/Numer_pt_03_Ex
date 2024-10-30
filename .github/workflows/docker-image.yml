@@ -42,5 +42,5 @@ jobs:
         file: ./my-numer1/Dockerfile  # แก้ path ให้ถูกต้อง
         push: true
         tags: |
-          ${{ secrets.DOCKER_HUB_USERNAME }}/mynumerapp01:latest
-          ${{ secrets.DOCKER_HUB_USERNAME }}/mynumerapp01:${{ github.sha }}
+          ${{ secrets.DOCKER_USERNAME }}/mynumerapp01:latest
+          ${{ secrets.DOCKER_USERNAME }}/mynumerapp01:${{ github.sha }}
