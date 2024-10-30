@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "Manoi1348_",
-    database: "mynumer_log"
+    database: "mynumer_log2"
 });
 
 // Test MySQL connection
@@ -29,9 +29,9 @@ app.use((req, res, next) => {
 });
 
 app.post('/api/insert', (req, res) => {
-    const { equation, method, Result } = req.body;
-    const query = "INSERT INTO calculation_logs_3(equation, method, Result) VALUES (?, ?, ?)";
-    connection.query(query, [equation, method, Result], (err, results) => {
+    const { equation, method, result } = req.body;
+    const query = "INSERT INTO calculations(equation, method, result) VALUES (?, ?, ?)";
+    connection.query(query, [equation, method, result], (err, results) => {
         if (err) {
             console.log("Error loading data:", err);
             return res.status(500).json({ error: "Internal server error" });

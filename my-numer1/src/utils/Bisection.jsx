@@ -51,13 +51,13 @@ const BisectionMethod = () => {
             setIterations(newIterations);
     
             // Log the calculation after it's done
-            fetch('https://numeric-meth-pt-02-kbx9.vercel.app/api/insert', {   // Update this URL if necessary https://numeric-meth-pt-02-kbx9.vercel.app/bisection 
+            fetch('http://localhost:3000/api/insert', {   // Update this URL if necessary https://numeric-meth-pt-02-kbx9.vercel.app/bisection 
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     equation: equation,
                     method: "Bisection",
-                    Result: xm // Use the calculated root
+                    result: xm // Use the calculated root
                 }),
             })
             .then(response => {
