@@ -52,7 +52,7 @@ const BisectionMethod = () => {
             setIterations(newIterations);
 
             // Log the calculation after it's done
-            axios.post('https://my-numer-server.vercel.app/api/insert/', {   // http://localhost:5000/api/insert
+            axios.post('https://my-numer-server.vercel.app/api/insert', {   // http://localhost:5000/api/insert
                 equation: equation,   // Send the equation string
                 method: method,       // Send the method string
                 result: xm            // Send the calculated root (xm)
