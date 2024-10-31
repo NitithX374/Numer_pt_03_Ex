@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(cors({
-    origin: 'https://numer-pt-03-ex.vercel.app', // Change this to your frontend's URL when not local
+    origin: 'https://numer-pt-03-ex.vercel.app/bisection', 
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true,
     optionsSuccessStatus: 200
