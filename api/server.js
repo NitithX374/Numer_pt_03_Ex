@@ -45,14 +45,14 @@ const connectDB = async () => {
 connectDB();
 
 // Define Calculation schema and model
-const calculationLogsSchema = new mongoose.Schema({
+const calculated = new mongoose.Schema({
     equation: { type: String, required: true },
     method: { type: String, required: true },
     result: { type: Number, required: true },
     createdAt: { type: Date, default: Date.now } // Optionally track when the entry was created
 });
 
-const Calculation = mongoose.model('calculation_logs', calculationLogsSchema); // Updated model name for clarity
+const Calculation = mongoose.model('calculation_logs', calculated); // Updated model name for clarity
 
 // Home endpoint
 app.get('/', (req, res) => {

@@ -54,10 +54,10 @@ const BisectionMethod = () => {
             // Log the calculation after it's done
             const logCalculation = async (equation, method, result) => {
                 try {
-                    const response = await axios.post('/api/insert', {
+                    const response = await axios.post('https://numer-pt-03-ex-xmpx.vercel.app/api/insert', {
                         equation,
                         method,
-                        result,
+                        result
                     });
                     console.log('Response from API:', response.data);
                 } catch (error) {
@@ -68,7 +68,7 @@ const BisectionMethod = () => {
                     }
                 }
             };
-    
+            logCalculation(equation,method,xm);
         } catch (err) {
             console.error("Error in calculation:", err);
             setRoot(0);
