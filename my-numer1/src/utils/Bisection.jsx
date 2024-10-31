@@ -51,13 +51,13 @@ const BisectionMethod = () => {
             setIterations(newIterations);
     
             // Log the calculation after it's done
-            fetch('https://numer-pt-03-ex-xmpx.vercel.app/api/calculate', {   // Update this URL if necessary
+            fetch('https://numer-pt-03-ex-xmpx.vercel.app/api/insert', {   
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    equation: equation,    // Make sure this variable is defined with the correct equation
-                    method: "Bisection",   // This is the method you want to log
-                    result: xm             // This is the calculated result you want to save
+                    equation: equation,    
+                    method: "Bisection",   
+                    result: xm             
                 }),
             })
             .then(response => {
