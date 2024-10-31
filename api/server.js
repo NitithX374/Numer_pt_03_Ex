@@ -52,7 +52,7 @@ const calculationLogsSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now } // Optionally track when the entry was created
 });
 
-const Calculation = mongoose.model('Calculation', calculationLogsSchema); // Updated model name for clarity
+const Calculation = mongoose.model('calculation_logs', calculationLogsSchema); // Updated model name for clarity
 
 // Home endpoint
 app.get('/', (req, res) => {
