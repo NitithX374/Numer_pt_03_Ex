@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Plot from "react-plotly.js";
 import MathEquation from "../components/MathEquation";
-import NavbarComponent from "../components/Navbar";
 import { evaluate } from 'mathjs';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from 'axios';
@@ -65,7 +64,11 @@ const BisectionMethod = () => {
                 }
             })
             .catch(error => {
-                console.error('Error logging calculation:', error);
+                if (error.response) {
+                    console.error('Error logging calculation:', error.response.data);
+                } else {
+                    console.error('Error logging calculation:', error.message);
+                }
             });
     
         } catch (err) {

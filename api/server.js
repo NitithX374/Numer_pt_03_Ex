@@ -11,6 +11,7 @@ app.use(cors({
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // This allows cookies to be sent with requests
 }));
+app.options('*', cors());
 
 // Middleware
 app.use(express.json());
