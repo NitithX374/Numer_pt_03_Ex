@@ -7,7 +7,7 @@ const PORT = 5000;
 
 // CORS configuration
 const allowedOrigins = ['https://numer-pt-03-ex.vercel.app'];
-
+const allowedOrigins2 = ['http://localhost:3000'];
 app.use(cors({
     origin: allowedOrigins,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -22,7 +22,7 @@ app.use(express.json());
 // Connect to MongoDB with error handling and timeout configuration
 const connectDB = async () => {
     try {
-        await mongoose.connect('mongodb+srv://chorunrit:j9W5rTM4haUuRYDm@cluster0.6p3he.mongodb.net/mynumerlog?retryWrites=true&w=majority&appName=Cluster0', {
+        await mongoose.connect('mongodb+srv://chorunrit:j9W5rTM4haUuRYDm@cluster0.6p3he.mongodb.net/mynumer_log?retryWrites=true&w=majority&appName=Cluster0', {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             serverSelectionTimeoutMS: 5000 // 5-second timeout for MongoDB connection
@@ -90,6 +90,6 @@ module.exports = app;
 
 // {
 //     "equation":
-//     "x^2 - 4 = nigga"
+//     "x^2 - 4 ="
 //     "method":"Quadratic Formula"
 //     "result":2}
