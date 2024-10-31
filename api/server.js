@@ -8,10 +8,10 @@ app.use(express.json());
 app.use(cors());
 
 const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "Manoi1348_",
-    database: "mynumer_log2"
+   host: process.env.DB_HOST,      
+   user: process.env.DB_USER,      
+   password: process.env.DB_PASSWORD,
+   database: process.env.DB_NAME
 });
 
 // Test MySQL connection
@@ -27,7 +27,13 @@ app.use((req, res, next) => {
     console.log(`Received ${req.method} request to ${req.url}`);
     next();
 });
-
+app.get('/api/test' ,(req, res) =>{
+    try{
+        res.json({message:"API is working"})
+    }catch{
+        res.status(500).json({message:"API is not working"})
+    }
+})
 app.post('/api/insert', (req, res) => {
     const { equation, method, result } = req.body;
     const query = "INSERT INTO calculations(equation, method, result) VALUES (?, ?, ?)";
