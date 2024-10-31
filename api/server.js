@@ -6,6 +6,7 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
+// Middleware
 app.use(express.json());
 app.use(cors({
     origin: '*',
@@ -27,6 +28,7 @@ const connectDB = async () => {
     }
 };
 
+// Call connectDB once when the server starts
 connectDB();
 
 // Define Calculation schema and model
@@ -35,47 +37,45 @@ const calculationSchema = new mongoose.Schema({
     method: String,
     result: Number
 });
-const Calculation = mongoose.model('calculation_logs', calculationSchema);
+
+const Calculation = mongoose.model('Calculation', calculationSchema); // Use a singular name for the model
 
 app.use((req, res, next) => {
     console.log(`Received ${req.method} request to ${req.url}`);
     next();
 });
 
+// Test endpoint
 app.get('/api/test', (req, res) => {
-    try {
-        res.json({ message: "test API is working" });
-    } catch {
-        res.status(500).json({ message: "API is not working" });
-    }
+    res.json({ message: "Test API is working" });
 });
 
+// Home endpoint
 app.get('/', (req, res) => {
-    try {
-        res.json({ message: "API is working" });
-    } catch {
-        res.status(500).json({ message: "API is not working" });
-    }
+    res.json({ message: "API is working" });
 });
 
+// Insert calculation
 app.post('/api/insert', async (req, res) => {
     const { equation, method, result } = req.body;
 
     try {
         const calculation = new Calculation({ equation, method, result });
         await calculation.save();
-        res.json({ msg: "Data inserted successfully" });
+        res.json({ msg: "Data inserted successfully", data: calculation });
     } catch (error) {
-        console.log("Error inserting data:", error);
+        console.error("Error inserting data:", error);
         res.status(500).json({ error: "Internal server error" });
     }
 });
 
+// Start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
 
 module.exports = app;
+
 
 //MongoAcc:chorunrit MongoPass:j9W5rTM4haUuRYDm
 //mongodb+srv://chorunrit:<db_password>@cluster0.6p3he.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
