@@ -17,7 +17,7 @@ app.use(cors({
 // Connect to MongoDB
 const connectDB = async () => {
     try {
-        await mongoose.connect(process.env.MONGODB_URI, {
+        await mongoose.connect('mongodb+srv://chorunrit:j9W5rTM4haUuRYDm@cluster0.6p3he.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
@@ -33,7 +33,7 @@ connectDB();
 const calculationSchema = new mongoose.Schema({
     equation: String,
     method: String,
-    result: String
+    result: Number
 });
 const Calculation = mongoose.model('calculation_logs', calculationSchema);
 
