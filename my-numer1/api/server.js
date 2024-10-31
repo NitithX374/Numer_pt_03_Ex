@@ -48,3 +48,9 @@ app.listen(port, () => {
 });
 
 module.exports = app;
+// const connection = mysql.createConnection({                                   use this to connect to my db
+//     host: process.env.DB_HOST,      // Access the environment variable
+//     user: process.env.DB_USER,      // Access the environment variable
+//     password: process.env.DB_PASSWORD,// Access the environment variable
+//     database: process.env.DB_NAME    // Access the environment variable
+// });
