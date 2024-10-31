@@ -3,25 +3,29 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
+const PORT = 5000;
 
+// CORS configuration
 const allowedOrigins = ['https://numer-pt-03-ex.vercel.app'];
 
 app.use(cors({
     origin: allowedOrigins,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true, // This allows cookies to be sent with requests
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'] // Added allowed headers
 }));
-app.options('*', cors());
+app.options('*', cors()); // Enable preflight for all routes
 
 // Middleware
 app.use(express.json());
 
-// Connect to MongoDB
+// Connect to MongoDB with error handling and timeout configuration
 const connectDB = async () => {
     try {
         await mongoose.connect('mongodb+srv://chorunrit:j9W5rTM4haUuRYDm@cluster0.6p3he.mongodb.net/mynumerlog?retryWrites=true&w=majority&appName=Cluster0', {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            serverSelectionTimeoutMS: 5000 // 5-second timeout for MongoDB connection
         });
         console.log('Database connected successfully');
     } catch (error) {
@@ -54,7 +58,7 @@ app.get('/', (req, res) => {
 // Insert calculation
 app.post('/api/insert', async (req, res) => {
     const { equation, method, result } = req.body;
-
+    console.log(equation, method, result);
     try {
         // Validate input and return early if invalid
         if (!equation || !method || result === undefined) {
@@ -72,4 +76,20 @@ app.post('/api/insert', async (req, res) => {
     }
 });
 
+// Print repeating message to verify server is running
+setInterval(() => {
+    console.log('Server is active: 1 1 1 1 1 1 1 1');
+}, 5000); // Logs every 5 seconds
+
+// Start the server
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+
 module.exports = app;
+
+// {
+//     "equation":
+//     "x^2 - 4 = nigga"
+//     "method":"Quadratic Formula"
+//     "result":2}
