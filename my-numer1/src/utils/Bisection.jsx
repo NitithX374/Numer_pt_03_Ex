@@ -4,7 +4,7 @@ import MathEquation from "../components/MathEquation";
 import NavbarComponent from "../components/Navbar";
 import { evaluate } from 'mathjs';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import {axios} from 'axios'
+import axios from 'axios';
 const BisectionMethod = () => {
     const [equation, setEquation] = useState("x^4-13");
     const [xl, setXL] = useState(0);
