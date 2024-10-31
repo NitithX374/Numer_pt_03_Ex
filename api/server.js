@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 });
 app.get('/api/test' ,(req, res) =>{
     try{
-        res.json({message:"API is working"})
+        res.json({message:"test API is working"})
     }catch{
         res.status(500).json({message:"API is not working"})
     }
