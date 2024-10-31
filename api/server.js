@@ -5,6 +5,12 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5000; // Use environment variable for port
 
+app.use((req,res,next) =>{
+    res.setHeader("Access-Control-Allow-Origin",'https://numer-pt-03-ex.vercel.app',
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST"),
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type")
+    )
+})
 // CORS configuration
 const allowedOrigins = ['https://numer-pt-03-ex.vercel.app', 'http://localhost:3000']; // Combined allowed origins
 app.use(cors({
