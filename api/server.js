@@ -34,6 +34,13 @@ app.get('/api/test' ,(req, res) =>{
         res.status(500).json({message:"API is not working"})
     }
 })
+app.get('/' ,(req, res) =>{
+    try{
+        res.json({message:"API is working"})
+    }catch{
+        res.status(500).json({message:"API is not working"})
+    }
+})
 app.post('/api/insert', (req, res) => {
     const { equation, method, result } = req.body;
     const query = "INSERT INTO calculations(equation, method, result) VALUES (?, ?, ?)";
