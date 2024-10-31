@@ -45,19 +45,22 @@ app.get('/', (req, res) => {
 app.post('/api/insert', (req, res) => {
     const { equation, method, result } = req.body;
     const calculation = { equation, method, result };
-
-    db.collection('calculation_logs') 
-        .insertOne(calculation)
-        .then(result => {
-            res.json({
-                msg: "Data inserted successfully",
-                insertID: result.insertedId
-            });
-        })
-        .catch(err => {
-            console.log("Error inserting data:", err);
-            res.status(500).json({ error: "Internal server error" });
-        });
+    try {
+        res.json({ message: "API is working" });
+    } catch {
+        res.status(500).json({ message: "API is not working" });
+    }
+    // db.collection('calculation_logs') 
+    //     .insertOne(calculation)
+    //     .then(result => {
+    //         res.json({
+    //             msg: "Data inserted successfully"
+    //         });
+    //     })
+    //     .catch(err => {
+    //         console.log("Error inserting data:", err);
+    //         res.status(500).json({ error: "Internal server error" });
+    //     });
 });
 
 app.listen(port, () => {
