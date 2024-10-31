@@ -9,11 +9,20 @@ const PORT = 5000;
 const allowedOrigins = ['https://numer-pt-03-ex.vercel.app'];
 const allowedOrigins2 = ['http://localhost:3000'];
 app.use(cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) !== -1 || allowedOrigins2.indexOf(origin) !== -1) {
+            return callback(null, true);
+        } else {
+            return callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'] // Added allowed headers
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
+
 app.options('*', cors()); // Enable preflight for all routes
 
 // Middleware
@@ -45,10 +54,7 @@ const calculation_logsSchema = new mongoose.Schema({
 
 const Calculation = mongoose.model('calculation_logs', calculation_logsSchema);
 
-// Test endpoint
-app.get('/api/test', (req, res) => {
-    res.json({ message: "Test API is working" });
-});
+
 
 // Home endpoint
 app.get('/', (req, res) => {
@@ -76,15 +82,12 @@ app.post('/api/insert', async (req, res) => {
     }
 });
 
-// Print repeating message to verify server is running
-setInterval(() => {
-    console.log('Server is active: 1 1 1 1 1 1 1 1');
-}, 5000); // Logs every 5 seconds
+// Print repeating message to verify server is runn
 
 // Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//     console.log(`Server is running on port ${PORT}`);
+// });
 
 module.exports = app;
 
