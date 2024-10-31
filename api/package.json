@@ -3,6 +3,8 @@
     "cors": "^2.8.5",
     "express": "^4.21.1",
     "init": "^0.1.2",
+    "mongodb": "^6.10.0",
+    "mongoose": "^8.7.3",
     "mysql2": "^3.11.3"
   },
   "devDependencies": {
