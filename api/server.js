@@ -2,15 +2,13 @@ const express = require('express');
 const { MongoClient } = require('mongodb');
 const cors = require('cors');
 const app = express();
-const port = 3000;
-
+const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cors());
 
-// MongoDB connection URI
+
 const uri = process.env.MONGODB_URI;
 
-// MongoDB client and database variable
 let db;
 
 // Connect to MongoDB
@@ -48,8 +46,7 @@ app.post('/api/insert', (req, res) => {
     const { equation, method, result } = req.body;
     const calculation = { equation, method, result };
 
-    // Insert data into the MongoDB collection
-    db.collection('calculation_logs') // Ensure 'calculations' collection exists
+    db.collection('calculation_logs') 
         .insertOne(calculation)
         .then(result => {
             res.json({
