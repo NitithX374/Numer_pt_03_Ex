@@ -47,8 +47,9 @@ const BisectionMethod = () => {
             } while (ea > tolerance);
 
             setRoot(xm);
+            const res = xm;
             setIterations(newIterations);
-            await logCalculation(equation, method, xm);
+            await logCalculation(equation, method, res);
 
         } catch (err) {
             console.error("Error in calculation:", err);
