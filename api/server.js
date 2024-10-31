@@ -2,21 +2,24 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
+
 const app = express();
 const port = process.env.PORT || 5000;
+
 app.use(cors({
-    origin: 'https://numer-pt-03-ex.vercel.app/', // Replace with your frontend's URL
+    origin: 'https://numer-pt-03-ex.vercel.app', // Change this to your frontend's URL when not local
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true,
     optionsSuccessStatus: 200
 }));
+
 // Middleware
 app.use(express.json());
 
 // Connect to MongoDB
 const connectDB = async () => {
     try {
-        await mongoose.connect('mongodb+srv://chorunrit:j9W5rTM4haUuRYDm@cluster0.6p3he.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
+        await mongoose.connect('mongodb+srv://chorunrit:j9W5rTM4haUuRYDm@cluster0.6p3he.mongodb.net/mynumerlog?retryWrites=true&w=majority&appName=Cluster0', {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
@@ -30,18 +33,13 @@ const connectDB = async () => {
 connectDB();
 
 // Define Calculation schema and model
-const calculationSchema = new mongoose.Schema({
+const calculation_logsSchema = new mongoose.Schema({
     equation: String,
     method: String,
     result: Number
 });
 
-const Calculation = mongoose.model('calculation_logs', calculationSchema); // Use a singular name for the model
-
-app.use((req, res, next) => {
-    console.log(`Received ${req.method} request to ${req.url}`);
-    next();
-});
+const Calculation = mongoose.model('calculation_logs', calculation_logsSchema);
 
 // Test endpoint
 app.get('/api/test', (req, res) => {
@@ -58,23 +56,20 @@ app.post('/api/insert', async (req, res) => {
     const { equation, method, result } = req.body;
 
     try {
-        const calculation = new Calculation({ equation, method, result });
-        await calculation.save();
-        console.log("insert successfully")
-        res.json({ msg: "Data inserted successfully", data: calculation });
+        // Validate input and return early if invalid
+        if (!equation || !method || result === undefined) {
+            return res.status(400).json({ error: "All fields are required." });
+        }
+
+        // Create and save calculation in one step
+        const calculation = await new Calculation({ equation, method, result }).save();
+
+        // Respond with the created calculation
+        res.status(201).json({ msg: "Data inserted successfully", data: calculation });
     } catch (error) {
         console.error("Error inserting data:", error);
         res.status(500).json({ error: "Internal server error" });
     }
 });
 
-// Start the server
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
-
 module.exports = app;
-
-
-//MongoAcc:chorunrit MongoPass:j9W5rTM4haUuRYDm
-//mongodb+srv://chorunrit:<db_password>@cluster0.6p3he.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0

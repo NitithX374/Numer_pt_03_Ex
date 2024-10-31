@@ -52,18 +52,19 @@ const BisectionMethod = () => {
     
             // Log the calculation after it's done
             axios.post('https://numer-pt-03-ex-xmpx.vercel.app/api/insert', {   
-                equation:equation,
-                method:"Bisection",
-                result:xm
+                equation: equation,
+                method: "Bisection",
+                result: xm
             })
             .then(response => {
-                if (!response.ok) {
+                
+                if (response.status !== 200) {
                     throw new Error('Network response was not ok');
                 }
-                return response.json();
+                return response.data; 
             })
             .then(data => {
-                console.log(data.msg); // Confirm successful log addition
+                console.log(data.msg); 
             })
             .catch(error => {
                 console.error('Error logging calculation:', error);
