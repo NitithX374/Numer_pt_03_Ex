@@ -1,25 +1,36 @@
 const express = require('express');
-const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose');
 const cors = require('cors');
+require('dotenv').config();
+
 const app = express();
 const port = process.env.PORT || 5000;
+
 app.use(express.json());
 app.use(cors());
 
-
-const uri = process.env.MONGODB_URI;
-
-let db;
-
 // Connect to MongoDB
-MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(client => {
-    db = client.db(); // Get the database
-    console.log('Connected to MongoDB');
-  })
-  .catch(err => {
-    console.error('Error connecting to MongoDB:', err);
-  });
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGODB_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        console.log('Database connected successfully');
+    } catch (error) {
+        console.error('Database connection failed:', error);
+    }
+};
+
+connectDB();
+
+// Define Calculation schema and model
+const calculationSchema = new mongoose.Schema({
+    equation: String,
+    method: String,
+    result: String
+});
+const Calculation = mongoose.model('calculation_logs', calculationSchema);
 
 app.use((req, res, next) => {
     console.log(`Received ${req.method} request to ${req.url}`);
@@ -42,25 +53,17 @@ app.get('/', (req, res) => {
     }
 });
 
-app.post('/api/insert', (req, res) => {
+app.post('/api/insert', async (req, res) => {
     const { equation, method, result } = req.body;
-    const calculation = { equation, method, result };
+
     try {
-        res.json({ message: "API is working" });
-    } catch {
-        res.status(500).json({ message: "API is not working" });
+        const calculation = new Calculation({ equation, method, result });
+        await calculation.save();
+        res.json({ msg: "Data inserted successfully" });
+    } catch (error) {
+        console.log("Error inserting data:", error);
+        res.status(500).json({ error: "Internal server error" });
     }
-    // db.collection('calculation_logs') 
-    //     .insertOne(calculation)
-    //     .then(result => {
-    //         res.json({
-    //             msg: "Data inserted successfully"
-    //         });
-    //     })
-    //     .catch(err => {
-    //         console.log("Error inserting data:", err);
-    //         res.status(500).json({ error: "Internal server error" });
-    //     });
 });
 
 app.listen(port, () => {
@@ -68,5 +71,6 @@ app.listen(port, () => {
 });
 
 module.exports = app;
+
 //MongoAcc:chorunrit MongoPass:j9W5rTM4haUuRYDm
 //mongodb+srv://chorunrit:<db_password>@cluster0.6p3he.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
