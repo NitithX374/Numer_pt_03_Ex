@@ -5,6 +5,7 @@ import NavbarComponent from "../components/Navbar";
 import { evaluate } from 'mathjs';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from 'axios';
+
 const BisectionMethod = () => {
     const [equation, setEquation] = useState("x^4-13");
     const [xl, setXL] = useState(0);
@@ -27,7 +28,8 @@ const BisectionMethod = () => {
             let iter = 0;
             const tolerance = 0.00001;
             const newIterations = [];
-    
+            const method = "Bisection"; // Define the method here
+
             do {
                 xm = (xl + xr) / 2.0; // Calculate Xm
                 const scopeXr = { x: xr };
@@ -49,22 +51,18 @@ const BisectionMethod = () => {
     
             setRoot(xm);
             setIterations(newIterations);
-    
+
             // Log the calculation after it's done
             axios.post('https://numer-pt-03-ex-xmpx.vercel.app/api/insert', {   
-                equation: equation,
-                method: "Bisection",
-                result: xm
+                equation: equation,   // Send the equation string
+                method: method,       // Send the method string
+                result: xm            // Send the calculated root (xm)
             })
             .then(response => {
-                
+                console.log('Response from API:', response.data);
                 if (response.status !== 200) {
                     throw new Error('Network response was not ok');
                 }
-                return response.data; 
-            })
-            .then(data => {
-                console.log(data.msg); 
             })
             .catch(error => {
                 console.error('Error logging calculation:', error);
@@ -76,7 +74,6 @@ const BisectionMethod = () => {
             setIterations([]);
         }
     };
-    
 
     return (
         <>
