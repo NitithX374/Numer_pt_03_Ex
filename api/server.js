@@ -9,12 +9,11 @@ const port = process.env.PORT || 5000;
 // Middleware
 app.use(express.json());
 app.use(cors({
-    origin: '*',
+    origin: 'https://numer-pt-03-ex.vercel.app', // Replace with your frontend's URL
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true,
     optionsSuccessStatus: 200
 }));
-
 // Connect to MongoDB
 const connectDB = async () => {
     try {
