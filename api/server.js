@@ -35,19 +35,24 @@ app.get('/api/test' ,(req, res) =>{
     }
 })
 app.post('/api/insert', (req, res) => {
-    const { equation, method, result } = req.body;
-    const query = "INSERT INTO calculations(equation, method, result) VALUES (?, ?, ?)";
-    connection.query(query, [equation, method, result], (err, results) => {
-        if (err) {
-            console.log("Error loading data:", err);
-            return res.status(500).json({ error: "Internal server error" });
-        }
-        res.json({
-            msg: "Data inserted successfully",
-            insertID: results.insertId
-        });
-    });
-});
+    try{
+        res.json({message:"API is working"})
+    }catch{
+        res.status(500).json({message:"API is not working"})
+    }
+    // const { equation, method, result } = req.body;
+    // const query = "INSERT INTO calculations(equation, method, result) VALUES (?, ?, ?)";
+    // connection.query(query, [equation, method, result], (err, results) => {
+    //     if (err) {
+    //         console.log("Error loading data:", err);
+    //         return res.status(500).json({ error: "Internal server error" });
+    //     }
+    //     res.json({
+    //         msg: "Data inserted successfully",
+    //         insertID: results.insertId
+    //     });
+    // });
+})
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
