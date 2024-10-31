@@ -5,7 +5,7 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 app.use(cors({
-    origin: 'https://numer-pt-03-ex.vercel.app', // Replace with your frontend's URL
+    origin: 'https://numer-pt-03-ex.vercel.app/', // Replace with your frontend's URL
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true,
     optionsSuccessStatus: 200
@@ -36,7 +36,7 @@ const calculationSchema = new mongoose.Schema({
     result: Number
 });
 
-const Calculation = mongoose.model('Calculation', calculationSchema); // Use a singular name for the model
+const Calculation = mongoose.model('calculation_logs', calculationSchema); // Use a singular name for the model
 
 app.use((req, res, next) => {
     console.log(`Received ${req.method} request to ${req.url}`);
@@ -60,6 +60,7 @@ app.post('/api/insert', async (req, res) => {
     try {
         const calculation = new Calculation({ equation, method, result });
         await calculation.save();
+        console.log("insert successfully")
         res.json({ msg: "Data inserted successfully", data: calculation });
     } catch (error) {
         console.error("Error inserting data:", error);
