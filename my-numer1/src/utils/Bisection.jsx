@@ -16,17 +16,17 @@ const BisectionMethod = () => {
     const error = (xOld, xNew) => Math.abs((xNew - xOld) / xNew) * 100;
 
     useEffect(() => {
-        setRoot(0);
-        setIterations([]);
+        resetCalculation();
     }, [equation]);
 
     const calculateBisection = async () => {
         try {
-            let xm, fXm, fXr, ea;
+            let xm, fXm, fXr;
             let iter = 0;
             const tolerance = 0.00001;
             const newIterations = [];
             const method = "Bisection";
+            let ea = Infinity; // Initialize error to a large number
 
             do {
                 xm = (xl + xr) / 2.0; 
@@ -47,9 +47,8 @@ const BisectionMethod = () => {
             } while (ea > tolerance);
 
             setRoot(xm);
-            const res = xm;
             setIterations(newIterations);
-            await logCalculation(equation, method, res);
+            await logCalculation(equation, method, xm);
 
         } catch (err) {
             console.error("Error in calculation:", err);
