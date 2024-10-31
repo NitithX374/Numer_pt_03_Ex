@@ -51,7 +51,7 @@ const BisectionMethod = () => {
             setIterations(newIterations);
     
             // Log the calculation after it's done
-            fetch('https://numer-pt-03-ex-xmpx.vercel.app/api/insert', {   // Update this URL if necessary
+            fetch('https://numer-pt-03-ex-xmpx.vercel.app/api/calculate', {   // Update this URL if necessary
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
