@@ -49,7 +49,7 @@ app.post('/api/insert', (req, res) => {
     const calculation = { equation, method, result };
 
     // Insert data into the MongoDB collection
-    db.collection('calculations') // Ensure 'calculations' collection exists
+    db.collection('calculation_logs') // Ensure 'calculations' collection exists
         .insertOne(calculation)
         .then(result => {
             res.json({
