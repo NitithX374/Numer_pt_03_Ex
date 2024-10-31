@@ -6,11 +6,12 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
+const allowedOrigins = ['https://numer-pt-03-ex.vercel.app'];
+
 app.use(cors({
-    origin: 'https://numer-pt-03-ex.vercel.app/bisection', 
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    credentials: true,
-    optionsSuccessStatus: 200
+    origin: allowedOrigins,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // This allows cookies to be sent with requests
 }));
 
 // Middleware
