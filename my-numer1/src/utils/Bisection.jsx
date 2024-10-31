@@ -4,7 +4,7 @@ import MathEquation from "../components/MathEquation";
 import NavbarComponent from "../components/Navbar";
 import { evaluate } from 'mathjs';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-
+import {axios} from 'axios'
 const BisectionMethod = () => {
     const [equation, setEquation] = useState("x^4-13");
     const [xl, setXL] = useState(0);
@@ -51,14 +51,10 @@ const BisectionMethod = () => {
             setIterations(newIterations);
     
             // Log the calculation after it's done
-            fetch('https://numer-pt-03-ex-xmpx.vercel.app/api/insert', {   
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    equation: equation,    
-                    method: "Bisection",   
-                    result: xm             
-                }),
+            axios.post('https://numer-pt-03-ex-xmpx.vercel.app/api/insert', {   
+                equation:equation,
+                method:"Bisection",
+                result:xm
             })
             .then(response => {
                 if (!response.ok) {
