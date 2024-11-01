@@ -6,11 +6,23 @@ const PORT = process.env.PORT || 5000; // Use environment variable for port
 
 // CORS configuration
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://numer-pt-03-ex.vercel.app'); 
-    res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, PATCH, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); 
-    next(); 
+    res.setHeader('Access-Control-Allow-Origin', 'https://numer-pt-03-ex.vercel.app');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    initDB();
+    next();
 });
+
+app.use(cors({
+    origin: 
+    [
+        'http://localhost:5173',
+        'https://numer-pt-03-ex.vercel.app',
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true,
+    optionsSuccessStatus: 200
+}));
 
 
 
