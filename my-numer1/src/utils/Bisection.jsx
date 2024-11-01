@@ -54,7 +54,7 @@ const BisectionMethod = () => {
             // Log the calculation after it's done
             const logCalculation = async (equation, method, result) => {
                 try {
-                    const response = await axios.post('https://numer-pt-03-ex-75at.vercel.app/api/insert', { // Use the proxy URL locally
+                    const response = await axios.post('https://numer-pt-03-ex-ogf5.vercel.app/api/insert', { // Use the proxy URL locally
                         equation,
                         method,
                         result
