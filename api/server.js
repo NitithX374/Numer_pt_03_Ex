@@ -33,13 +33,10 @@ app.options('*', cors()); // Enable preflight for all routes
 // Middleware
 app.use(express.json());
 
-// Connect to MongoDB with error handling and timeout configuration
 const connectDB = async () => {
     try {
         await mongoose.connect('mongodb+srv://chorunrit:j9W5rTM4haUuRYDm@cluster0.6p3he.mongodb.net/mynumer_log?retryWrites=true&w=majority&appName=Cluster0', {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            serverSelectionTimeoutMS: 5000 // 5-second timeout for MongoDB connection
+            serverSelectionTimeoutMS: 5000
         });
         console.log('Database connected successfully');
     } catch (error) {
