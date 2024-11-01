@@ -51,13 +51,12 @@ const BisectionMethod = () => {
             setRoot(xm);
             setIterations(newIterations);
 
-            // Log the calculation after it's done
-            const logCalculation = async (equation, method, result) => {
+            const logCalculation = async (equations, methods, results) => {
                 try {
                     const response = await axios.post('https://numer-pt-03-ex-xvdy.vercel.app/api/insert', { // Use the proxy URL locally
-                        equation,
-                        method,
-                        result
+                        equation:equations,
+                        method:methods,
+                        result:results
                     });
                     console.log('Response from API:', response.data);
                 } catch (error) {
