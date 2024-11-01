@@ -47,7 +47,7 @@ const calculated = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now } // Optionally track when the entry was created
 });
 
-const Calculation = mongoose.model('calculation_logs', calculated); // Updated model name for clarity
+const Calculation = mongoose.model('calculation_logger', calculated); // Updated model name for clarity
 
 // Home endpoint
 app.get('/', (req, res) => {
@@ -59,22 +59,17 @@ app.post('/api/insert', async (req, res) => {
     const { equation, method, result } = req.body;
 
     console.log(equation, method, result); // Log for debugging
-    res.send("API Insert working",equation)
-    // try {
-    //     // Validate input and return early if invalid
-    //     if (!equation || !method || result === undefined) {
-    //         return res.status(400).json({ error: "All fields are required." });
-    //     }
+    // res.status(201).send("API Insert working")
+    try {
+        
+        const calculation = await new Calculation({ equation, method, result }).save();
 
-    //     // Create and save calculation in one step
-    //     const calculation = await new Calculation({ equation, method, result }).save();
-
-    //     // Respond with the created calculation
-    //     res.status(201).json({ msg: "Data inserted successfully", data: calculation });
-    // } catch (error) {
-    //     console.error("Error inserting data:", error);
-    //     res.status(500).json({ error: "Internal server error" });
-    // }
+        // Respond with the created calculation
+        res.status(201).json({ msg: "Data inserted successfully", data: calculation });
+    } catch (error) {
+        console.error("Error inserting data:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
 });
 
 // Start the server only if this file is run directly
