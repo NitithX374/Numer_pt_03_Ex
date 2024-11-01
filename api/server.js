@@ -1,28 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 5000; // Use environment variable for port
 
 // CORS configuration
-const allowedOrigins = ['https://numer-pt-03-ex-ogf5.vercel.app', 'http://localhost:3000'];
-app.use(cors({
-    origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.includes(origin)) {
-            return callback(null, true);
-        } else {
-            return callback(new Error('Not allowed by CORS'));
-        }
-    },
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
-}));
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://numer-pt-03-ex.vercel.app'); // Allow requests from this domain
+    res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, PATCH, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Adjust headers as needed
+    next(); // Move to the next middleware
+});
 
-app.options('*', cors()); // Enable preflight for all routes
+
 
 // Middleware
 app.use(express.json());
