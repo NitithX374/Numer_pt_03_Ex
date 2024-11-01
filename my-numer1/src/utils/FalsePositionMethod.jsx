@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Plot from "react-plotly.js";
 import MathEquation from "../components/MathEquation";
-import NavbarComponent from "../components/Navbar";
 import { evaluate } from 'mathjs';
 import { useNavigate } from 'react-router-dom';
 
