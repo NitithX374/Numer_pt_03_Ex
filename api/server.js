@@ -32,7 +32,7 @@ const connectDB = async () => {
     }
 };
 
-// Call connectDB once when the server starts
+// Call connectDB once when the server startss
 connectDB();
 
 // Define Calculation schema and model
