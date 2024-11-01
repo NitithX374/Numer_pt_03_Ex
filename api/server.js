@@ -14,9 +14,9 @@ app.use((req, res, next) => {
 
 app.use(cors({
     origin: 
-    [
-        'http://localhost:5173',
-        'https://numer-pt-03-ex-w2tr.vercel.app',
+    [   '*'
+        // 'http://localhost:5173',
+        // 'https://numer-pt-03-ex-w2tr.vercel.app',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true,
