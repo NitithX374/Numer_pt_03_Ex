@@ -1,16 +1,23 @@
-const express = require("express");
-const { createProxyMiddleware } = require("http-proxy-middleware");
+const express = require('express');
+const { createProxyMiddleware } = require('http-proxy-middleware');
+const cors = require('cors');
 
 const app = express();
-const PORT = 5001; // You can choose any available port
+const PORT = process.env.PORT || 5001; // You can choose any available port
 
-// Proxy configuration: Replace with your actual backend URL if needed
+// Enable CORS for all origins (adjust as necessary for your production setup)
+app.use(cors());
+
+// Middleware to parse JSON request bodies
+app.use(express.json());
+
+// Proxy configuration
 app.use(
-  "/api",
+  '/api', // This path will match requests coming from the frontend
   createProxyMiddleware({
-    target: "http://localhost:5000", // Backend server URL (replace if different)
+    target: 'https://numer-pt-03-ex-zgy8.vercel.app', // Your backend server URL
     changeOrigin: true,
-    pathRewrite: { "^/api": "" }, // Rewrite if the frontend uses "/api"
+    pathRewrite: { '^/api': '/api' }, // Forward requests with '/api' intact
   })
 );
 
