@@ -30,7 +30,7 @@ app.use(cors({
 app.use(express.json());
 
 // MongoDB connection
-const connectionString = 'mongodb+srv://chorunrit:<your-password>@cluster0.6p3he.mongodb.net/mynumer_log?retryWrites=true&w=majority&appName=Cluster0';
+const connectionString = 'mongodb+srv://chorunrit:<XbiNSZ7nGKxEUuIg>@cluster0.6p3he.mongodb.net/mynumer_log?retryWrites=true&w=majority&appName=Cluster0';
 const connectDB = async () => {
     try {
         await mongoose.connect(connectionString, {
@@ -93,3 +93,4 @@ if (require.main === module) {
 }
 
 module.exports = app; // Export app for testing or further use
+//MOngoPass XbiNSZ7nGKxEUuIg
