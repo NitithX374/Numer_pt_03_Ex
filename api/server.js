@@ -35,7 +35,7 @@ app.use(express.json());
 
 const connectDB = async () => {
     try {
-        await mongoose.connect('mongodb+srv://chorunrit:j9W5rTM4haUuRYDm@cluster0.6p3he.mongodb.net/mynumer_log?retryWrites=true&w=majority&appName=Cluster0', {
+        await mongoose.connect('mongodb+srv://chorunrit:<j9W5rTM4haUuRYDm>@cluster0.6p3he.mongodb.net/mynumer_log?retryWrites=true&w=majority&appName=Cluster0', {
             serverSelectionTimeoutMS: 5000
         });
         console.log('Database connected successfully');
