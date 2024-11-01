@@ -6,10 +6,10 @@ const PORT = process.env.PORT || 5000; // Use environment variable for port
 
 // CORS configuration
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://numer-pt-03-ex.vercel.app'); // Allow requests from this domain
+    res.header('Access-Control-Allow-Origin', 'https://numer-pt-03-ex.vercel.app'); 
     res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, PATCH, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Adjust headers as needed
-    next(); // Move to the next middleware
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); 
+    next(); 
 });
 
 
