@@ -1,34 +1,26 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors')
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5000; // Use environment variable for port
 
 // CORS configuration
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://numer-pt-03-ex-w2tr.vercel.app');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    connectDB();
-    next();
-});
-
 app.use(cors({
-    origin: 
-    [   '*'
+    origin: [
+        '*'
         // 'http://localhost:5173',
-        // 'https://numer-pt-03-ex-w2tr.vercel.app',
+        // 'https://numer-pt-03-ex-w2tr.vercel.app'
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true,
     optionsSuccessStatus: 200
 }));
 
-// Middlewar
+// Middleware for parsing JSON
 app.use(express.json());
 
 // MongoDB connection
-const connectionString = 'mongodb+srv://chorunrit:<XbiNSZ7nGKxEUuIg>@cluster0.6p3he.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const connectionString = 'mongodb+srv://chorunrit:XbiNSZ7nGKxEUuIg@cluster0.6p3he.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 const connectDB = async () => {
     try {
@@ -40,11 +32,12 @@ const connectDB = async () => {
         console.log('Database connected successfully');
     } catch (error) {
         console.error('Database connection failed:', error.message);
+        process.exit(1); // Exit the process if the DB connection fails
     }
 };
 
-// Call connectDB once when the server startss
-
+// Call connectDB once when the server starts
+connectDB();
 
 // Define Calculation schema and model
 const calculated = new mongoose.Schema({
@@ -92,4 +85,3 @@ if (require.main === module) {
 }
 
 module.exports = app; // Export app for testing or further use
-//MOngoPass XbiNSZ7nGKxEUuIg
