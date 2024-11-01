@@ -13,7 +13,7 @@ app.use(express.json());
 
 // Proxy configuration
 app.use(
-  '/api', // This path will match requests coming from the frontend
+  '/api/insert', // This path will match requests coming from the frontend
   createProxyMiddleware({
     target: 'https://numer-pt-03-ex-zgy8.vercel.app', // Your backend server URL
     changeOrigin: true,
